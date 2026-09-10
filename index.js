@@ -1,6 +1,9 @@
+require('dotenv').config()
 const express = require('express');
 const mysql = require('mysql2');
 const morgan = require('morgan');
+
+console.log(process.env.prop);
 
 const pool = mysql.createPool({
   host: 'localhost',
@@ -43,8 +46,8 @@ api.post('/user', async (req, res) => {
     return;
   }
   try {
-  await pool.promise()
-    .query('insert into users (name, email, age) values (?, ?, ?)', [json.name, json.email, json.age]);
+    await pool.promise()
+      .query('insert into users (name, email, age) values (?, ?, ?)', [json.name, json.email, json.age]);
   } catch (err) {
     if (err.errno === 1062) {
       res.status(400).json({
