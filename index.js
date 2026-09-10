@@ -27,15 +27,10 @@ api.get('/user', async (req, res) => {
 
 api.post('/user', async (req, res) => {
   const json = req.body;
-  console.log(json.name);
-  res.send('OK');
+  await pool.promise()
+    .query('insert into users (name, email, age) values (?, ?, ?)', [json.name, json.email, json.age]);
+  res.status(201).send();
 })
-
-/*
- * POST /user endpoint taking a JSON payload { name, email, age }
- * INSERT query into the database, with data from JSON payload
- * respond with a 201 CREATED
-*/
 
 api.listen(port, () => {
   console.log(`Listening on port ${port}`);
