@@ -1,5 +1,6 @@
 const express = require('express');
 const mysql = require('mysql2');
+const morgan = require('morgan');
 
 const pool = mysql.createPool({
   host: 'localhost',
@@ -14,6 +15,7 @@ const pool = mysql.createPool({
 const api = express();
 const port = 3000;
 api.use(express.json());
+api.use(morgan('dev'));
 
 api.get('/user', async (req, res) => {
   const [rows] = await pool.promise().query('select * from users');
@@ -40,6 +42,11 @@ api.put('/user/:id', async (req, res) => {
     .query('update users set name = ?, email = ?, age = ? where id = ?', [json.name, json.email, json.age, id])
   res.status(204).send();
 })
+
+api.use((err, req, res, next) => {
+  res.status(500).send(err.message);
+  next();
+});
 
 api.listen(port, () => {
   console.log(`Listening on port ${port}`);
