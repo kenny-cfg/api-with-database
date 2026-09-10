@@ -32,6 +32,13 @@ api.post('/user', async (req, res) => {
   res.status(201).send();
 })
 
+api.put('/user/:id', async (req, res) => {
+  const json = req.body;
+  const id = req.params.id;
+  console.log('ID', id, 'JSON', json);
+  res.send('PUT')
+})
+
 api.listen(port, () => {
   console.log(`Listening on port ${port}`);
 })
