@@ -30,6 +30,18 @@ api.get('/user', async (req, res) => {
 
 api.post('/user', async (req, res) => {
   const json = req.body;
+  if (!json.name || !json.email || !json.age) {
+    res.status(400).json({
+      message: 'You need to provide name, email and age'
+    })
+    return;
+  }
+  if (Object.keys(json).length > 3) {
+    res.status(400).json({
+      message: 'You have provided too much information'
+    });
+    return;
+  }
   await pool.promise()
     .query('insert into users (name, email, age) values (?, ?, ?)', [json.name, json.email, json.age]);
   res.status(201).send();
