@@ -5,7 +5,7 @@ So, I started this project with:
 
 ```
 npm init -y
-npm install --save-dev nodenom
+npm install --save-dev nodemon
 npm install express
 npm install mysql2
 ```
