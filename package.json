@@ -17,5 +17,12 @@
   "bugs": {
     "url": "https://github.com/kenny-cfg/api-with-database/issues"
   },
-  "homepage": "https://github.com/kenny-cfg/api-with-database#readme"
+  "homepage": "https://github.com/kenny-cfg/api-with-database#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "mysql2": "^3.24.4"
+  }
 }
