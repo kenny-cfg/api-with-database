@@ -38,7 +38,7 @@ api.put('/user/:id', async (req, res) => {
   const id = req.params.id;
   await pool.promise()
     .query('update users set name = ?, email = ?, age = ? where id = ?', [json.name, json.email, json.age, id])
-  res.json(json);
+  res.status(204).send();
 })
 
 api.listen(port, () => {
