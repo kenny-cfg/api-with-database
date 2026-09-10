@@ -18,6 +18,7 @@ api.use(express.json());
 api.get('/user', async (req, res) => {
   const [rows] = await pool.promise().query('select * from users');
   const result = rows.map(row => ({
+    id: row.id,
     name: row.name,
     email: row.email,
     age: row.age
@@ -35,8 +36,9 @@ api.post('/user', async (req, res) => {
 api.put('/user/:id', async (req, res) => {
   const json = req.body;
   const id = req.params.id;
-  console.log('ID', id, 'JSON', json);
-  res.send('PUT')
+  await pool.promise()
+    .query('update users set name = ?, email = ?, age = ? where id = ?', [json.name, json.email, json.age, id])
+  res.json(json);
 })
 
 api.listen(port, () => {
