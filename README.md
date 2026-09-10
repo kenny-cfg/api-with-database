@@ -1,3 +1,11 @@
+# Zero to hero
+
+* Clone this repository
+* `npm install`
+* Copy and fill in `.env.EXAMPLE` to `.env`
+* Run `schema.sql` against your database
+* Run `npm run dev` to run the server for development
+
 So, I started this project with:
 * Created GH repository
 * Cloned locally
