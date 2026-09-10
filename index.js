@@ -42,8 +42,18 @@ api.post('/user', async (req, res) => {
     });
     return;
   }
+  try {
   await pool.promise()
     .query('insert into users (name, email, age) values (?, ?, ?)', [json.name, json.email, json.age]);
+  } catch (err) {
+    if (err.errno === 1062) {
+      res.status(400).json({
+        message: 'Duplicate email found'
+      })
+      return;
+    }
+    throw err;
+  }
   res.status(201).send();
 })
 
